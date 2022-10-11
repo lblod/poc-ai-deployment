@@ -265,6 +265,10 @@ services:
     volumes:
       - model_store:/models/
     container_name: lblod-bertopic-api
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
     ports:
       - 8085:8080
 
@@ -273,6 +277,10 @@ services:
     volumes:
       - model_store:/models/
     container_name: lblod-embed-api
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
     ports:
       - 8081:8080
 
@@ -281,6 +289,10 @@ services:
     volumes:
       - model_store:/models/
     container_name: lblod-ner-api
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
     ports:
       - 8082:8080
 
@@ -289,6 +301,10 @@ services:
     volumes:
       - model_store:/models/
     container_name: lblod-textgen-api
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
     ports:
       - 8083:8080
 
@@ -297,6 +313,10 @@ services:
     volumes:
       - model_store:/models/
     container_name: lblod-keyword-api
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
     ports:
       - 8084:8080
 
