@@ -227,7 +227,7 @@ services:
 
   git-sync:
     image: k8s.gcr.io/git-sync/git-sync:v3.6.1
-    command: --repo=https://gitlab.ml2grow.com/abb/airflow-dags --username=airflow --password=K25J5qffE8XE_91_sdV1 --root=/git --dest=dags --wait=60 --depth=1
+    command: --repo=https://github.com/lblod/poc-ai-airflow-dags.git --root=/git --dest=dags --wait=60 --depth=1
     user: "${AIRFLOW_UID:-50000}:0"
     volumes:
       - git:/git
