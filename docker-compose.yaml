@@ -256,6 +256,9 @@ services:
       - "gs://abb-textgen-models/NER-model"
       - "gs://abb-textgen-models/zero-shot-model"
       - "gs://abb-textgen-models/translate-nl-en"
+      - "gs://abb-textgen-models/dutch-gpt-medium"
+      - "gs://abb-textgen-models/dutch-gpt-neo"
+      - "gs://abb-textgen-models/gpt2-retrain"
       - "/models/"
     volumes:
       - model_store:/models
