@@ -208,7 +208,7 @@ services:
           echo "Please follow the instructions to increase amount of resources available:"
           echo "   https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html#before-you-begin"
           echo
-        fi
+        fi 
         mkdir -p /sources/logs /sources/plugins
         chown -R "${AIRFLOW_UID:-50000}:0" /sources/{git,logs,plugins}
         exec /entrypoint airflow version
