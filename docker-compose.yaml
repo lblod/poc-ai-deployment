@@ -262,6 +262,7 @@ services:
 
   bertopic-api:
     image: lblod/poc-ai-bertopic:latest
+    pull_policy: always
     volumes:
       - model_store:/models/
     container_name: lblod-bertopic-api
@@ -274,6 +275,7 @@ services:
 
   embed-api:
     image: lblod/poc-ai-embed:latest
+    pull_policy: always
     volumes:
       - model_store:/models/
     container_name: lblod-embed-api
@@ -286,6 +288,7 @@ services:
 
   ner-api:
     image: lblod/poc-ai-ner:latest
+    pull_policy: always
     volumes:
       - model_store:/models/
     container_name: lblod-ner-api
@@ -298,6 +301,7 @@ services:
 
   textgen-api:
     image: lblod/poc-ai-text-generation:latest
+    pull_policy: always
     volumes:
       - model_store:/models/
     container_name: lblod-textgen-api
@@ -310,6 +314,7 @@ services:
 
   keyword-api:
     image: lblod/poc-ai-keywords:latest
+    pull_policy: always
     volumes:
       - model_store:/models/
     container_name: lblod-keyword-api
