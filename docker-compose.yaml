@@ -83,7 +83,7 @@ services:
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
-        condition: service_completed_successfully
+        condition: service_started
 
   airflow-scheduler:
     <<: *airflow-common
@@ -101,7 +101,7 @@ services:
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
-        condition: service_completed_successfully
+        condition: service_started
 
   airflow-worker:
     <<: *airflow-common
@@ -122,7 +122,7 @@ services:
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
-        condition: service_completed_successfully
+        condition: service_started
     volumes:
       - git:/opt/airflow/git
       - logs:/opt/airflow/logs
@@ -144,7 +144,7 @@ services:
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
-        condition: service_completed_successfully
+        condition: service_started
 
   airflow-init:
     <<: *airflow-common
@@ -249,6 +249,7 @@ services:
     image: google/cloud-sdk:alpine
     command:
       - "gsutil"
+      - "-m"
       - "cp"
       - "-r"
       - "gs://abb-textgen-models/topic.model"
