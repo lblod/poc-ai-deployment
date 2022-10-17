@@ -252,6 +252,7 @@ services:
       - "-m"
       - "cp"
       - "-r"
+      - "-n"
       - "gs://abb-textgen-models/topic.model"
       - "gs://abb-textgen-models/RobertaModel_PDF_V1"
       - "gs://abb-textgen-models/NER-model"
