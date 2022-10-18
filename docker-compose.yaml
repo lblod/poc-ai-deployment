@@ -283,8 +283,6 @@ services:
     volumes:
       - model_store:/models/
     container_name: lblod-embed-api
-    depends_on:
-      - models-init
     restart: unless-stopped
     ports:
       - 8081:8080
