@@ -127,7 +127,7 @@ services:
       - git:/opt/airflow/git
       - logs:/opt/airflow/logs
       - plugins:/opt/airflow/plugins
-      - custom_dags:/custom_configs
+      - custom_dags:/configs
 
   airflow-triggerer:
     <<: *airflow-common
