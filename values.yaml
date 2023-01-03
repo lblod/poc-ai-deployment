@@ -1,0 +1,37 @@
+dags:
+  persistence:
+    enabled: true
+  gitSync:
+    enabled: true
+    repo: https://github.com/lblod/poc-ai-airflow-dags.git
+    branch: kubernetes
+    depth: 1
+    subPath: ""
+    wait: 60
+scheduler:
+  extraVolumes:
+    - name: models
+      persistentVolumeClaim: 
+        claimName: poc-ai-deployment-model-store
+  extraInitContainers:
+    - name: model-store-init
+      image: google/cloud-sdk:alpine
+      args:
+        - "gsutil"
+        - "-m"
+        - "cp"
+        - "-r"
+        - "gs://abb-textgen-models/topic.model"
+        - "gs://abb-textgen-models/RobertaModel_PDF_V1"
+        - "gs://abb-textgen-models/NER-model"
+        - "gs://abb-textgen-models/zero-shot-model"
+        - "gs://abb-textgen-models/translate-nl-en"
+        - "gs://abb-textgen-models/dutch-gpt-medium"
+        - "gs://abb-textgen-models/dutch-gpt-neo"
+        - "gs://abb-textgen-models/gpt2-retrain"
+        - "/models/"
+      volumeMounts:
+        - name: models
+          mountPath: /models
+      securityContext:
+        runAsUser: 1000
