@@ -19,6 +19,7 @@ spec:
           image: lblod/poc-ai-text-generation:latest
           ports:
             - containerPort: 8080
+          imagePullPolicy: Always
           volumeMounts:
             - name: models
               mountPath: /models
