@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: embed-api
+  labels:
+    app: embed-api
+spec:
+  selector:
+    matchLabels:
+      app: embed-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: embed-api
+    spec:
+      containers:
+        - name: embed-api
+          image: lblod/poc-ai-embed:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: models
+              mountPath: /models
+              readOnly: true
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: poc-ai-deployment-model-store
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: embed-api
+spec:
+  type: ClusterIP
+  selector:
+    app: embed-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

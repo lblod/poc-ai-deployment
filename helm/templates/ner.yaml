@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ner-api
+  labels:
+    app: ner-api
+spec:
+  selector:
+    matchLabels:
+      app: ner-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ner-api
+    spec:
+      containers:
+        - name: ner-api
+          image: lblod/poc-ai-ner:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: models
+              mountPath: /models
+              readOnly: true
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: poc-ai-deployment-model-store
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ner-api
+spec:
+  type: ClusterIP
+  selector:
+    app: ner-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

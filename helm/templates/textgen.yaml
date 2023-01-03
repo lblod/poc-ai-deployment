@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: textgen-api
+  labels:
+    app: textgen-api
+spec:
+  selector:
+    matchLabels:
+      app: textgen-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: textgen-api
+    spec:
+      containers:
+        - name: textgen-api
+          image: lblod/poc-ai-text-generation:latest
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: models
+              mountPath: /models
+              readOnly: true
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: poc-ai-deployment-model-store
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: textgen-api
+spec:
+  type: ClusterIP
+  selector:
+    app: textgen-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
