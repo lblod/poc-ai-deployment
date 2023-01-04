@@ -3,3 +3,7 @@ name: poc-ai-apis
 version: v0.1
 description: LBLOD POC AI APIs
 type: application
+dependencies:
+- name: airflow
+  version: "1.7.0"
+  repository: "https://airflow.apache.org/"
